@@ -1,33 +1,33 @@
-<div class="container">
-<nav class="navbar bg-light">
-  <div class="row">
-    <div class="col">
-      <h4>
-        My notes
-      </h4>
-      
-      <div class="input-group mb-3">
+<div class="header container">
+  <nav class="navbar header__box">
+    <div class="row">
+      <div class="col">
+        <h4 class="header__title">
+          Мои заметки
+        </h4>
         
-        <input
-          #inputserch
-          type="text"
-          class="form-control"
-          placeholder="Search by name"
-          aria-label=""
-          aria-describedby="basic-addon1">
+        <div class="input-group header__search">
+          
+          <input
+            #inputserch
+            type="text"
+            (keyup)=" (inputserch.value === '') && this.onSerch('') "
+            class="form-control header__input "
+            placeholder="Поиск по названию"
+            aria-describedby="basic-addon1">
+          
+          <div class="input-group-prepend">
+            <button
+              (click)="this.onSerch(inputserch.value)"
+              class="btn  header__button"
+              type="button">Найти</button>
+          </div>
         
-        <div class="input-group-prepend">
-          <button
-            (click)="this.onSerch(inputserch.value)"
-            class="btn btn-outline-secondary"
-            type="button">Search</button>
         </div>
       
       </div>
-    
     </div>
-  </div>
-</nav>
+  </nav>
 </div>
-<app-form></app-form>
+<app-form (createNote)="inputserch.value = ''"></app-form>
 

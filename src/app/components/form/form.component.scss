@@ -1,0 +1,24 @@
+.node-form{
+  &__control{
+    margin-top: 15px;
+  }
+  &__label{
+    padding-left: 15px;
+    display: block;
+    width: 200px;
+  }
+  &__input{
+    width: 400px;
+    border-radius: 2px;
+  }
+  &__textarea{
+    @extend .node-form__input
+  }
+  &__button{
+    background: #f4f4f4;
+    border-radius: 2px ;
+    border: 1px solid #ced4da;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}

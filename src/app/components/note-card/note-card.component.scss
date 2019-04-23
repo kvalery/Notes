@@ -1,0 +1,16 @@
+.note-card{
+  padding-bottom: 10px;
+  &__title{
+
+  }
+  &__date{
+    margin-bottom: 40px;
+  }
+  &__text{
+    font-size: 14px;
+  }
+  &__action{
+    width: 100%;
+    color: rgba(36, 84, 137, 0.89);
+  }
+}

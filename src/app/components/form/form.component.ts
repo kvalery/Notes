@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { myNote, NoteManipulationService } from '../../services/note-manipulation.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MyNote, NoteManipulationService } from '../../services/note-manipulation.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
@@ -13,6 +13,9 @@ export class FormComponent implements OnInit {
   public nodeForm: FormGroup;
   public pipe = new DatePipe('en-US');
 
+
+  @Output()
+  public createNote = new EventEmitter<any>();
   constructor(
     public noteManipulationService: NoteManipulationService,
     private fb: FormBuilder
@@ -26,27 +29,20 @@ export class FormComponent implements OnInit {
   }
 
   public submit() {
-    // bad way needs more time
+    // bad way...
     const newId = this.noteManipulationService.getNotesLength() + 1;
     //
     const formValue = this.nodeForm.value;
     const nowDateString = this.pipe.transform(Date.now(), 'dd.MM.yy');
-    const newNote: myNote = {
+    const newNote: MyNote = {
       id: newId,
       active: true,
       date: nowDateString,
       name: formValue.nodeName,
       text: formValue.nodeText,
     };
-
-    console.log(newId)
     this.noteManipulationService.createNote(newNote);
-
     this.nodeForm.reset();
+    this.createNote.emit();
   }
-
-  public cleanForm() {
-    this.nodeForm.reset();
-  }
-
 }

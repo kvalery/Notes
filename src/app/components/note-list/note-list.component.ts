@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs/index';
 })
 export class NoteListComponent implements OnInit, OnDestroy {
 
-  public notesList: myNote[] = [];
+  public notesList: any = [];
   private listDetect: Subscription;
 
   constructor(
@@ -18,7 +18,7 @@ export class NoteListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.listDetect = this.noteManipulationService.getNotes()
-      .subscribe( (notes) => this.notesList = notes );
+      .subscribe( (notes: myNote ) =>  this.notesList = notes );
   }
 
   public togglNote( id: number ) {

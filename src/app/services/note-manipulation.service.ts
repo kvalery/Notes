@@ -1,18 +1,12 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { createScope } from '@angular/core/src/profile/wtf_impl';
-import {DataSource} from '@angular/cdk/table';
+import { Injectable, OnInit } from '@angular/core';
+import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
 
-
-import { from } from 'rxjs';
-import { filter } from 'rxjs/operators';
-
-export interface myNote {
+export interface MyNote {
   id: number;
   active: boolean;
   date: any;
   name: string;
-  text: string
+  text: string;
 }
 
 @Injectable({
@@ -20,44 +14,52 @@ export interface myNote {
 })
 export class NoteManipulationService {
 
+  private listData: MyNote[] = [];
   private myNotes: BehaviorSubject<any> = new BehaviorSubject<any>([]);
 
-  constructor() { }
+  constructor() {
+    this.listData = JSON.parse(localStorage.getItem('NOTE_LIST'));
+    this.myNotes.next(this.listData);
+    addEventListener('storage', (event: StorageEvent) => {
+      if (event.key === 'NOTE_LIST' ) {
+        this.listData = JSON.parse(localStorage.getItem('NOTE_LIST'));
+        this.myNotes.next(this.listData);
+      }
+    });
+  }
 
-  public getNotes(): Observable<myNote> {
+  public getNotes(): Observable<any> {
     return this.myNotes.asObservable();
   }
 
-  public createNote(note: myNote): void {
-    const newNotesList = this.myNotes.getValue();
-    newNotesList.push(note);
-    this.myNotes.next(newNotesList);
+  public createNote(note: MyNote): void {
+    this.listData.push(note);
+    this.myNotes.next(this.listData);
+    this.storageUpdate(this.listData);
   }
 
   public togglNote(id: number): void {
-    const editedList = this.myNotes.getValue();
-    const index = editedList.findIndex( element => element.id === id )
-    editedList[index].active = !editedList[index].active;
-    this.myNotes.next(editedList);
+    const index2 = this.listData.findIndex( element => element.id === id );
+    this.listData[index2].active = !this.listData[index2].active;
+    this.storageUpdate(this.listData);
   }
 
   public finedNote( str: string) {
-    console.log('-------')
+    if (!str) {
+      this.myNotes.next(this.listData);
+    } else {
+      const newNotesList = this.listData.filter( note => note.active && (note.name.indexOf(str)) > -1 );
+      this.myNotes.next(newNotesList);
+    }
+  }
 
-    const source = from([1, 2, 3, 4, 6, 8, 4, 2, 5]);
-    console.log(source)
-
-    const example = source.pipe(filter(num => num % 2 === 0));
-
-    const subscribe = example.subscribe(val => console.log(`Even number: ${val}`));
-
-    console.log(source, example, subscribe  )
+  public storageUpdate(list: MyNote[]) {
+    localStorage.setItem('NOTE_LIST', JSON.stringify(list));
   }
 
   public getNotesLength(): number {
-    return  (this.myNotes.getValue()).length;
+    return this.listData.length;
   }
-
 
 }
 

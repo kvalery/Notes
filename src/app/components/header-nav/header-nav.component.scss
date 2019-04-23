@@ -1,0 +1,31 @@
+.header{
+  &__box{
+    background-color: #687682;
+    color: white;
+    padding: 15px;
+  }
+  &__title{
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-bottom: 0;
+  }
+  &__search{
+    margin-bottom: 0;
+  }
+  &__input{
+    width: 400px;
+    margin-right: 3px;
+    border-radius: 2px;
+  }
+  &__button{
+    color: white;
+    padding-left: 50px;
+    padding-right: 50px;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 2px;
+    &:hover{
+      opacity: 0.5;
+    }
+  }
+}

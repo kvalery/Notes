@@ -1,7 +1,8 @@
-<div class="container">
+<div class="container note-list">
   <app-note-card
+    class="note-list__itm"
+    *ngFor="let note of notesList"
     [noteInfo]="note"
-    (actionNote)="togglNote($event)"
-    *ngFor="let note of notesList">
+    (actionNote)="togglNote($event)">
   </app-note-card>
 </div>
