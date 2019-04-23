@@ -1,0 +1,33 @@
+<div class="container">
+<nav class="navbar bg-light">
+  <div class="row">
+    <div class="col">
+      <h4>
+        My notes
+      </h4>
+      
+      <div class="input-group mb-3">
+        
+        <input
+          #inputserch
+          type="text"
+          class="form-control"
+          placeholder="Search by name"
+          aria-label=""
+          aria-describedby="basic-addon1">
+        
+        <div class="input-group-prepend">
+          <button
+            (click)="this.onSerch(inputserch.value)"
+            class="btn btn-outline-secondary"
+            type="button">Search</button>
+        </div>
+      
+      </div>
+    
+    </div>
+  </div>
+</nav>
+</div>
+<app-form></app-form>
+

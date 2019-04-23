@@ -1,0 +1,7 @@
+<div class="container">
+  <app-note-card
+    [noteInfo]="note"
+    (actionNote)="togglNote($event)"
+    *ngFor="let note of notesList">
+  </app-note-card>
+</div>

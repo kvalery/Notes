@@ -1,0 +1,18 @@
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <div *ngIf="noteInfo.active">
+    <h5 class="card-title">{{noteInfo.name}}</h5>
+    <p class="card-text">{{noteInfo.date}}</p>
+    <p class="card-text">{{noteInfo.text}}</p>
+      <button
+        (click)="actionNote.emit(noteInfo.id)"
+        class="btn ">close</button>
+    </div>
+    
+    <div *ngIf="!noteInfo.active">
+      <p class="card-text">Заметка удалена</p>
+      <button (click)="actionNote.emit(noteInfo.id)"
+        class="btn ">open</button>
+    </div>
+  </div>
+</div>
