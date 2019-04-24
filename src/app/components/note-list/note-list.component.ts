@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { myNote, NoteManipulationService } from '../../services/note-manipulation.service';
+import { MyNote, NoteManipulationService } from '../../services/note-manipulation.service';
 import { Subscription } from 'rxjs/index';
 
 @Component({
@@ -18,7 +18,11 @@ export class NoteListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.listDetect = this.noteManipulationService.getNotes()
-      .subscribe( (notes: myNote ) =>  this.notesList = notes );
+      .subscribe( (notes: MyNote ) =>  this.notesList = notes );
+  }
+
+  public editNote( note: MyNote ) {
+    this.noteManipulationService.setCurrentNote(note);
   }
 
   public togglNote( id: number ) {

@@ -17,7 +17,7 @@ export class HeaderNavComponent implements OnInit {
 
   }
 
-  public onSerch(serchStr: string | '') {
+  public onSerch( serchStr: string ) {
     this.noteManipulationService.finedNote(serchStr);
   }
 

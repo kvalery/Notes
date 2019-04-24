@@ -1,4 +1,6 @@
-<div class="card" style="width: 18rem;">
+<div class="card"
+  (click)="noteInfo.active && editNote.emit(noteInfo)"
+  style="width: 18rem;">
   <div class="card-body note-card">
     <div *ngIf="noteInfo.active">
     <h5 class="card-title note-card__title">{{noteInfo.name}}</h5>

@@ -16,6 +16,7 @@ export class NoteManipulationService {
 
   private listData: MyNote[] = [];
   private myNotes: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  private currentNote: BehaviorSubject<any> = new BehaviorSubject<any>([]);
 
   constructor() {
     this.listData = JSON.parse(localStorage.getItem('NOTE_LIST'));
@@ -32,15 +33,30 @@ export class NoteManipulationService {
     return this.myNotes.asObservable();
   }
 
+  public setCurrentNote(note) {
+    this.currentNote.next(note);
+  }
+
+  public getCurrentNote(): Observable<any> {
+    return this.currentNote.asObservable();
+  }
+
   public createNote(note: MyNote): void {
     this.listData.push(note);
     this.myNotes.next(this.listData);
     this.storageUpdate(this.listData);
   }
 
+  public editNote(note: MyNote): void {
+    const index = this.listData.findIndex( element => element.id === note.id );
+    this.listData[index] = note;
+    this.myNotes.next(this.listData);
+    this.storageUpdate(this.listData);
+  }
+
   public togglNote(id: number): void {
-    const index2 = this.listData.findIndex( element => element.id === id );
-    this.listData[index2].active = !this.listData[index2].active;
+    const index = this.listData.findIndex( element => element.id === id );
+    this.listData[index].active = !this.listData[index].active;
     this.storageUpdate(this.listData);
   }
 

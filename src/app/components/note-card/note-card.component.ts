@@ -14,6 +14,9 @@ export class NoteCardComponent implements OnInit {
   @Output()
   public actionNote = new EventEmitter<any>();
 
+  @Output()
+  public editNote = new EventEmitter<any>();
+
   constructor() { }
 
   ngOnInit() {
